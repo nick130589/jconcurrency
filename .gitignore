@@ -1,0 +1,4 @@
+# IDEA artifacts and output dirs
+*.iml
+.idea
+out
