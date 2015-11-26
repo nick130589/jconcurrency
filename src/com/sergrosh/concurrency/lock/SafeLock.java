@@ -3,6 +3,7 @@ package com.sergrosh.concurrency.lock;
 /**
  * Created by sroshchupkin on 19/11/15.
  */
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.Random;
@@ -27,7 +28,7 @@ public class SafeLock {
                 myLock = lock.tryLock();
                 yourLock = bower.lock.tryLock();
             } finally {
-                if (! (myLock && yourLock)) {
+                if (!(myLock && yourLock)) {
                     if (myLock) {
                         lock.unlock();
                     }
@@ -77,10 +78,11 @@ public class SafeLock {
 
         public void run() {
             Random random = new Random();
-            for (;;) {
+            for (; ; ) {
                 try {
                     Thread.sleep(random.nextInt(10));
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
                 bowee.bow(bower);
             }
         }

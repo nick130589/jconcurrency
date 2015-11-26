@@ -20,7 +20,7 @@ public class TwoThreadAlive extends Thread {
         TwoThreadAlive tt = new TwoThreadAlive();
         tt.setName("Thread");
         System.out.println("before start(), tt.isAlive()=" + tt.isAlive());
-                tt.start();
+        tt.start();
         System.out.println("just after start(), tt.isAlive()=" + tt.isAlive());
         for (int i = 0; i < 10; i++) {
             tt.printMsg();

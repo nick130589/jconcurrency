@@ -5,11 +5,11 @@ import java.util.concurrent.BlockingQueue;
 /**
  * Created by Sergey on 11/25/2015.
  */
-public class Producer implements Runnable{
+public class Producer implements Runnable {
 
     protected BlockingQueue queue = null;
 
-    public Producer(BlockingQueue  queue) {
+    public Producer(BlockingQueue queue) {
         this.queue = queue;
     }
 

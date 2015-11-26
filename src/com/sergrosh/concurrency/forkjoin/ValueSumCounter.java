@@ -21,13 +21,13 @@ public class ValueSumCounter extends RecursiveTask<Long> {
         long sum = node.getValue();
         List<ValueSumCounter> subTasks = new LinkedList<>();
 
-        for(Node child : node.getChildren()) {
+        for (Node child : node.getChildren()) {
             ValueSumCounter task = new ValueSumCounter(child);
             task.fork();
             subTasks.add(task);
         }
 
-        for(ValueSumCounter task : subTasks) {
+        for (ValueSumCounter task : subTasks) {
             sum += task.join();
         }
 

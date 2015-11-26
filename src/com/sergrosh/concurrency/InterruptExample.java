@@ -9,7 +9,7 @@ public class InterruptExample implements Runnable {
         try {
             Thread.sleep(Long.MAX_VALUE);
         } catch (InterruptedException e) {
-            System.out.println("["+Thread.currentThread().getName()+"] Interrupted by exception!");
+            System.out.println("[" + Thread.currentThread().getName() + "] Interrupted by exception!");
         }
     }
 
@@ -17,10 +17,10 @@ public class InterruptExample implements Runnable {
         Thread myThread = new Thread(new InterruptExample(), "myThread");
         myThread.start();
 
-        System.out.println("["+Thread.currentThread().getName()+"] Sleeping in main thread for 5s...");
+        System.out.println("[" + Thread.currentThread().getName() + "] Sleeping in main thread for 5s...");
         Thread.sleep(5000);
 
-        System.out.println("["+Thread.currentThread().getName()+"] Interrupting myThread");
+        System.out.println("[" + Thread.currentThread().getName() + "] Interrupting myThread");
         myThread.interrupt();
     }
 }

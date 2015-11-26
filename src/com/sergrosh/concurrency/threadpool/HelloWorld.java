@@ -3,12 +3,14 @@ package com.sergrosh.concurrency.threadpool;
 /**
  * Created by Sergey on 11/18/2015.
  */
+
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
+
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.*;
 
@@ -39,7 +41,7 @@ public class HelloWorld extends HttpServlet {
         }
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 //        Server server = new Server(Integer.valueOf(System.getenv("PORT")));
 //        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 //        context.setContextPath("/");

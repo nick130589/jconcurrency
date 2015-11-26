@@ -4,21 +4,21 @@ package com.sergrosh.concurrency.other;
  * Created by Sergey on 11/26/2015.
  */
 public class GeneralInterrupt extends Object
-        implements Runnable  {
-    public void run()  {
+        implements Runnable {
+    public void run() {
         try {
             System.out.println("in run() - about to work2()");
-                    work2();
+            work2();
             System.out.println("in run() - back from  work2()");
-        }
-        catch (InterruptedException x) {
+        } catch (InterruptedException x) {
             System.out.println("in run() - interrupted in work2()");
             return;
         }
 
         System.out.println("in run() - doing stuff after nap");
-                System.out.println("in run() - leaving normally");
+        System.out.println("in run() - leaving normally");
     }
+
     public void work2() throws InterruptedException {
         while (true) {
             if (Thread.currentThread().isInterrupted()) {
@@ -30,6 +30,7 @@ public class GeneralInterrupt extends Object
             }
         }
     }
+
     public void work() throws InterruptedException {
         while (true) {
             for (int i = 0; i < 100000; i++) {
@@ -44,17 +45,17 @@ public class GeneralInterrupt extends Object
             }
         }
     }
+
     public static void main(String[] args) {
         GeneralInterrupt si = new GeneralInterrupt();
         Thread t = new Thread(si);
         t.start();
         try {
             Thread.sleep(2000);
-        }
-        catch (InterruptedException x) {
+        } catch (InterruptedException x) {
         }
         System.out.println("in main() - interrupting other thread");
-                t.interrupt();
+        t.interrupt();
         System.out.println("in main() - leaving");
     }
 }

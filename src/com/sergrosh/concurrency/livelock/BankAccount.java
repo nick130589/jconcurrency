@@ -3,6 +3,7 @@ package com.sergrosh.concurrency.livelock;
 /**
  * Created by Sergey on 11/15/2015.
  */
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -19,9 +20,12 @@ public class BankAccount {
     boolean withdraw(double amount) {
         if (this.lock.tryLock()) {
             // Wait to simulate io like database access ...
-            try {Thread.sleep(10l);} catch (InterruptedException e) {}
+            try {
+                Thread.sleep(10l);
+            } catch (InterruptedException e) {
+            }
             balance -= amount;
-            System.out.println("withdraw "+amount+" "+Thread.currentThread().getName());
+            System.out.println("withdraw " + amount + " " + Thread.currentThread().getName());
             return true;
         }
         return false;
@@ -30,9 +34,12 @@ public class BankAccount {
     boolean deposit(double amount) {
         if (this.lock.tryLock()) {
             // Wait to simulate io like database access ...
-            try {Thread.sleep(10l);} catch (InterruptedException e) {}
+            try {
+                Thread.sleep(10l);
+            } catch (InterruptedException e) {
+            }
             balance += amount;
-            System.out.println("deposit "+amount+" "+Thread.currentThread().getName());
+            System.out.println("deposit " + amount + " " + Thread.currentThread().getName());
             return true;
         }
         return false;
@@ -61,6 +68,7 @@ public class BankAccount {
     }
 
 }
+
 class Transaction implements Runnable {
     private BankAccount sourceAccount, destinationAccount;
     private double amount;

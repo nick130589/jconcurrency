@@ -19,7 +19,8 @@ public class Drop {
         while (empty) {
             try {
                 wait();
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
         }
         // Toggle status.
         empty = true;
@@ -35,7 +36,8 @@ public class Drop {
         while (!empty) {
             try {
                 wait();
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
         }
         // Toggle status.
         empty = false;

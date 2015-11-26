@@ -10,17 +10,21 @@ import java.util.concurrent.locks.*;
 public class DeadlockDetectingLock extends ReentrantLock {
     private static List deadlockLocksRegistry
             = new ArrayList();
+
     private static synchronized void
     registerLock(DeadlockDetectingLock ddl) {
         if (!deadlockLocksRegistry.contains(ddl))
             deadlockLocksRegistry.add(ddl);
     }
+
     private static synchronized void
     unregisterLock(DeadlockDetectingLock ddl) {
         if (deadlockLocksRegistry.contains(ddl))
             deadlockLocksRegistry.remove(ddl);
     }
+
     private List hardwaitingThreads = new ArrayList();
+
     private static synchronized void
     markAsHardwait(List l, Thread t) {
         if (!l.contains(t))
@@ -39,7 +43,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
         Iterator itr = deadlockLocksRegistry.iterator();
         while (itr.hasNext()) {
             current = (DeadlockDetectingLock) itr.next();
-            if    (current.getOwner() == t)
+            if (current.getOwner() == t)
                 results.add(current);
         }
         return results.iterator();
@@ -51,7 +55,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
     }
 
     private static synchronized boolean canThreadWaitOnLock
-            (Thread t,DeadlockDetectingLock l) {
+            (Thread t, DeadlockDetectingLock l) {
         Iterator locksOwned = getAllLocksOwned(t);
         while (locksOwned.hasNext()) {
             DeadlockDetectingLock current
@@ -105,8 +109,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
                     Thread.currentThread());
             if (debugging)
                 System.out.println("Got New Lock");
-        }
-        else {
+        } else {
             throw new DeadlockDetectedException("DEADLOCK");
         }
     }
@@ -118,6 +121,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
     //locks
     public class DeadlockDetectingCondition implements Condition {
         Condition embedded;
+
         protected DeadlockDetectingCondition(ReentrantLock lock,
                                              Condition embedded) {
             this.embedded = embedded;
@@ -128,8 +132,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
                 markAsHardwait(hardwaitingThreads,
                         Thread.currentThread());
                 embedded.await();
-            }
-            finally {
+            } finally {
                 freeIfHardwait(hardwaitingThreads,
                         Thread.currentThread());
             }
@@ -149,8 +152,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
                 markAsHardwait(hardwaitingThreads,
                         Thread.currentThread());
                 return embedded.awaitNanos(nanosTimeout);
-            }
-            finally {
+            } finally {
                 freeIfHardwait(hardwaitingThreads,
                         Thread.currentThread());
             }
@@ -162,8 +164,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
                 markAsHardwait(hardwaitingThreads,
                         Thread.currentThread());
                 return embedded.await(time, unit);
-            }
-            finally {
+            } finally {
                 freeIfHardwait(hardwaitingThreads,
                         Thread.currentThread());
             }
@@ -175,8 +176,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
                 markAsHardwait(hardwaitingThreads,
                         Thread.currentThread());
                 return embedded.awaitUntil(deadline);
-            }
-            finally {
+            } finally {
                 freeIfHardwait(hardwaitingThreads,
                         Thread.currentThread());
             }
@@ -202,19 +202,18 @@ public class DeadlockDetectingLock extends ReentrantLock {
     private static Condition wa = a.newCondition();
     private static Condition wb = b.newCondition();
     private static Condition wc = c.newCondition();
+
     private static void delaySeconds(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
-        }
-        catch (InterruptedException ex) {
+        } catch (InterruptedException ex) {
         }
     }
 
     private static void awaitSeconds(Condition c, int seconds) {
         try {
             c.await(seconds, TimeUnit.SECONDS);
-        }
-        catch (InterruptedException ex) {
+        } catch (InterruptedException ex) {
         }
     }
 
@@ -250,7 +249,7 @@ public class DeadlockDetectingLock extends ReentrantLock {
             public void run() {
                 System.out.println("thread one grab a");
                 a.lock();
-                delaySeconds(2) ;
+                delaySeconds(2);
                 System.out.println("thread one grab b");
                 b.lock();
                 delaySeconds(10);
