@@ -7,13 +7,18 @@ import java.util.concurrent.CountDownLatch;
  */
 public class CountDownLatchExample {
 
-    CountDownLatch latch = new CountDownLatch(3);
+    public static void main(String[] param){
+        CountDownLatch latch = new CountDownLatch(3);
 
-    Waiter      waiter      = new Waiter(latch);
-    Decrementer decrementer = new Decrementer(latch);
+        Waiter      waiter      = new Waiter(latch);
+        Decrementer decrementer = new Decrementer(latch);
 
-    Thread thread1 = new Thread(waiter);
-    Thread thread2 =new Thread(decrementer);
+        Thread thread1 = new Thread(waiter);
+        Thread thread2 =new Thread(decrementer);
+        thread1.start();
+        thread2.start();
+    }
+
 }
 
 class Waiter implements Runnable{
@@ -48,12 +53,15 @@ class Decrementer implements Runnable {
         try {
             Thread.sleep(1000);
             this.latch.countDown();
+            System.out.println("count down");
 
             Thread.sleep(1000);
             this.latch.countDown();
+            System.out.println("count down");
 
             Thread.sleep(1000);
             this.latch.countDown();
+            System.out.println("count down");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
